@@ -1,0 +1,16 @@
+digraph G {
+dd;
+precs;
+obs [style=filled];
+mean [shape=invtriangle];
+mean -> obs  [label=mu];
+category;
+category -> mean  [label=category];
+dd -> category  [label=p];
+means;
+means -> mean  [label=means];
+prec [shape=invtriangle];
+prec -> obs  [label=tau];
+category -> prec  [label=category];
+precs -> prec  [label=precs];
+}
