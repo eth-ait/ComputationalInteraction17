@@ -1,0 +1,524 @@
+Received: from [130.209.243.38] (130.209.243.38) by smtp.campus.gla.ac.uk
+ (130.209.14.40) with Microsoft SMTP Server (TLS) id 14.3.235.1; Wed, 10 Jun
+ 2015 16:56:31 +0100
+Subject: Re: minor issue
+To: Roderick Murray-Smith <Roderick.Murray-Smith@glasgow.ac.uk>
+References: <9D8D7A81-CE59-4610-BE55-103450A9C021@glasgow.ac.uk>
+ <55719DCF.9080509@glasgow.ac.uk>
+ <7C14CDB4-0FB9-47A3-9B10-42141F3E3D7C@glasgow.ac.uk>
+ <5575A0AD.4080009@glasgow.ac.uk>
+ <19D06AC4-4361-4611-8A6D-DFE69D797885@glasgow.ac.uk>
+From: Andrew Ramsay <andrew.ramsay@glasgow.ac.uk>
+Message-ID: <55785E4B.9030505@glasgow.ac.uk>
+Date: Wed, 10 Jun 2015 16:56:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101
+ Thunderbird/40.0a2
+In-Reply-To: <19D06AC4-4361-4611-8A6D-DFE69D797885@glasgow.ac.uk>
+Content-Type: multipart/mixed;
+	boundary="------------020801080301080309060508"
+Return-Path: andrew.ramsay@glasgow.ac.uk
+X-MS-Exchange-Organization-AuthSource: CAS05.campus.gla.ac.uk
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 06
+X-Originating-IP: [130.209.243.38]
+X-MS-Exchange-Organization-AVStamp-Mailbox: MSFTFF;1;0;0 0 0
+MIME-Version: 1.0
+
+--------------020801080301080309060508
+Content-Type: multipart/alternative;
+	boundary="------------070207030000060305000605"
+
+--------------070207030000060305000605
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi, here's an updated version of the main script which I think should 
+fix the problems you were having. The blank window was apparently 
+because the original version used OpenGL multisampling and that isn't 
+always supported, and then the name of the keypress callback function 
+was wrong and so it was ignoring all the keypresses. Seems to be working 
+as expected now when I try it in Anaconda+OSX.
+
+Andrew
+
+> yes, that looks fine. I can adapt that to what I need.
+>> On 8 Jun 2015, at 15:03, Andrew Ramsay <Andrew.Ramsay@glasgow.ac.uk 
+>> <mailto:Andrew.Ramsay@glasgow.ac.uk>> wrote:
+>>
+>> Hi, is this the sort of thing you were after? It displays a couple of 
+>> targets on either side of the window, limits the cursor to 1D 
+>> movement between them and logs the state on every frame into a simple 
+>> CSV format. The visible cursor is mapped directly to the mouse 
+>> position but that can be modified in update_cursor (you might also 
+>> need to change how the limits are handled in on_mouse_motion), and 
+>> pressing space should toggle the normal cursor visibility too
+>>
+>> Andrew
+>>> ok - the first does it
+>>>> On 5 Jun 2015, at 14:02, Andrew Ramsay 
+>>>> <Andrew.Ramsay@glasgow.ac.uk> wrote:
+>>>>
+>>>> Looks like it's maybe because it's not explicitly closing the 
+>>>> socket when the script exits... try adding: "self.sock.close()" at 
+>>>> the very end of the run() function, after the "pyglet.app.run()" 
+>>>> line. If that still doesn't help, add this:
+>>>> self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+>>>> to the __init__() func just before the "self.sock.bind(...)" line
+>>>>
+>>>> Andrew
+>>>>
+>>>>> Hi,
+>>>>>
+>>>>> whenever I run the photo_browser, I need to kill the console 
+>>>>> before running again. any idea how to fix that?
+>>>>>
+>>>>> In [36]: %run photo_browser.py
+>>>>> Will search for images in: "photos"
+>>>>> Traceback (most recent call last):
+>>>>>
+>>>>> File 
+>>>>> "/Users/rodmurraysmith/Dropbox/SummerSchoolCode/photo_browser/photo_browser.py", 
+>>>>> line 238, in <module>
+>>>>> PhotoBrowser(photo_path).run()
+>>>>>
+>>>>> File 
+>>>>> "/Users/rodmurraysmith/Dropbox/SummerSchoolCode/photo_browser/photo_browser.py", 
+>>>>> line 86, in __init__
+>>>>> self.sock.bind(('', LISTEN_PORT))
+>>>>>
+>>>>> File "//anaconda/lib/python2.7/socket.py", line 228, in meth
+>>>>> return getattr(self._sock,name)(*args)
+>>>>>
+>>>>> error: [Errno 48] Address already in use
+>>>>>
+>>>>>
+>>>>> In [37]:
+>>>>
+>>>
+>>
+>> <fitts_law.py>
+>
+
+
+--------------070207030000060305000605
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Hi, here's an updated version of the
+      main script which I think should fix the problems you were having.
+      The blank window was apparently because the original version used
+      OpenGL multisampling and that isn't always supported, and then the
+      name of the keypress callback function was wrong and so it was
+      ignoring all the keypresses. Seems to be working as expected now
+      when I try it in Anaconda&#43;OSX.<br>
+      <br>
+      Andrew<br>
+      <br>
+    </div>
+    <blockquote cite="mid:19D06AC4-4361-4611-8A6D-DFE69D797885@glasgow.ac.uk" type="cite">
+      
+      yes, that looks fine. I can adapt that to what I need.<br class="">
+      <div>
+        <blockquote type="cite" class="">
+          <div class="">On 8 Jun 2015, at 15:03, Andrew Ramsay &lt;<a moz-do-not-send="true" href="mailto:Andrew.Ramsay@glasgow.ac.uk" class=""><a class="moz-txt-link-abbreviated" href="mailto:Andrew.Ramsay@glasgow.ac.uk">Andrew.Ramsay@glasgow.ac.uk</a></a>&gt;
+            wrote:</div>
+          <br class="Apple-interchange-newline">
+          <div class="">
+            <div bgcolor="#FFFFFF" text="#000000" class="">
+              <div class="moz-cite-prefix">Hi, is this the sort of thing
+                you were after? It displays a couple of targets on
+                either side of the window, limits the cursor to 1D
+                movement between them and logs the state on every frame
+                into a simple CSV format. The visible cursor is mapped
+                directly to the mouse position but that can be modified
+                in update_cursor (you might also need to change how the
+                limits are handled in on_mouse_motion), and pressing
+                space should toggle the normal cursor visibility too<br class="">
+                <br class="">
+                Andrew<br class="">
+              </div>
+              <blockquote cite="mid:7C14CDB4-0FB9-47A3-9B10-42141F3E3D7C@glasgow.ac.uk" type="cite" class="">
+                ok - the first does it<br class="">
+                <div style="" class="">
+                  <blockquote type="cite" class="">
+                    <div class="">On 5 Jun 2015, at 14:02, Andrew Ramsay
+                      &lt;<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:Andrew.Ramsay@glasgow.ac.uk">Andrew.Ramsay@glasgow.ac.uk</a>&gt;
+                      wrote:</div>
+                    <br class="Apple-interchange-newline">
+                    <div class="">
+                      <div text="#000000" bgcolor="#FFFFFF" class="">
+                        <div class="moz-cite-prefix">Looks like it's
+                          maybe because it's not explicitly closing the
+                          socket when the script exits... try adding:
+                          &quot;self.sock.close()&quot; at the very end of the
+                          run() function, after the &quot;pyglet.app.run()&quot;
+                          line. If that still doesn't help, add this:<br class="">
+                          self.sock.setsockopt(socket.SOL_SOCKET,
+                          socket.SO_REUSEADDR, 1)<br class="">
+                          to the __init__() func just before the
+                          &quot;self.sock.bind(...)&quot; line<br class="">
+                          <br class="">
+                          Andrew<br class="">
+                          <br class="">
+                        </div>
+                        <blockquote cite="mid:9D8D7A81-CE59-4610-BE55-103450A9C021@glasgow.ac.uk" type="cite" class="">
+                          Hi,
+                          <div class=""><br class="">
+                          </div>
+                          <div class="">whenever I run the
+                            photo_browser, I need to kill the console
+                            before running again. any idea how to fix
+                            that?<br class="">
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class=""><span style=" color:#000080;" class="">In [</span><span style=" font-weight:600; color:#000080;" class="">36</span><span style="
+                                color:#000080;" class="">]:</span> %run
+                              photo_browser.py</div>
+                            <div style="margin: 0px;" class="">Will
+                              search for images in: &quot;photos&quot;</div>
+                            <div style="margin: 0px;" class="">Traceback
+                              <span style=" color:#4682b4;" class="">
+                                (most recent call last)</span>:</div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class="">File <span style=" color:#006400;" class="">
+&quot;/Users/rodmurraysmith/Dropbox/SummerSchoolCode/photo_browser/photo_browser.py&quot;</span>,
+                              line
+                              <span style=" color:#006400;" class="">238</span>,
+                              in <span style=" color:#9400d3;" class="">
+                                &lt;module&gt;</span></div>
+                            <div style="margin: 0px;" class="">PhotoBrowser(photo_path).run()</div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class="">File <span style=" color:#006400;" class="">
+&quot;/Users/rodmurraysmith/Dropbox/SummerSchoolCode/photo_browser/photo_browser.py&quot;</span>,
+                              line
+                              <span style=" color:#006400;" class="">86</span>,
+                              in <span style=" color:#9400d3;" class="">
+                                __init__</span></div>
+                            <div style="margin: 0px;" class="">self.sock.bind(('',
+                              LISTEN_PORT))</div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class=""><span style=" color:#4682b4;" class="">File
+                              </span><span style=" color:#006400;" class="">&quot;//anaconda/lib/python2.7/socket.py&quot;</span><span style=" color:#4682b4;" class="">, line
+                              </span><span style=" color:#006400;" class="">228</span><span style="
+                                color:#4682b4;" class="">, in
+                              </span><span style=" color:#9400d3;" class="">meth</span></div>
+                            <div style="margin: 0px;" class=""><span style=" color:#8b0000;" class="">return
+                                getattr(self._sock,name)(*args)</span></div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class=""><span style=" color:#8b0000;" class="">error:</span>
+                              [Errno 48] Address already in use</div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class=""><br class="">
+                            </div>
+                            <div style="margin: 0px;" class=""><span style=" color:#000080;" class="">In [</span><span style=" font-weight:600; color:#000080;" class="">37</span><span style="
+                                color:#000080;" class="">]:</span><!--EndFragment-->
+                            </div>
+                          </div>
+                        </blockquote>
+                        <br class="">
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <br class="">
+              </blockquote>
+              <br class="">
+            </div>
+            <span id="cid:747F766B-D10F-465B-A087-5891C6A32802">&lt;fitts_law.py&gt;</span></div>
+        </blockquote>
+      </div>
+      <br class="">
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------070207030000060305000605--
+
+--------------020801080301080309060508
+Content-Type: text/plain; charset="UTF-8"; name="phase.py"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="phase.py"
+
+aW1wb3J0IHB5Z2xldApmcm9tIHB5Z2xldC5nbCBpbXBvcnQgKgoKZnJvbSBmYWRlciBpbXBvcnQg
+RmFkZXIKaW1wb3J0IG51bXB5IGFzIG5wCmltcG9ydCB0aW1lLCBvcwppbXBvcnQgc3BsaW5lCmlt
+cG9ydCBnZW9tZXRyeQppbXBvcnQgY29sb3JzeXMKaW1wb3J0IGl0ZXJ0b29scwoKZnJvbSB0cmFj
+a2VyIGltcG9ydCBUcmFja2VyCgpXSURUSCA9IDgwMApIRUlHSFQgPSA4MDAKCmNsYXNzIFRyaVBo
+YXNlU2VxdWVuY2U6CiAgICBkZWYgX19pbml0X18oc2VsZiwgdHJpcyk6CiAgICAgICAgc2VsZi5z
+dGF0ZXMgPSB0cmlzCiAgICAgICAgc2VsZi5zdGF0ZSA9IDAKICAgICAgICBzZWxmLnRpbWVfaW5f
+c3RhdGUgPSAwCiAgICAgICAgc2VsZi50aW1lb3V0ID0gMC41CiAgICAgICAgc2VsZi50cmlnZ2Vy
+ID0gMC4wCiAgICAgICAgc2VsZi5hY3RpdmUgPSAwLjAKICAgICAgICBzZWxmLmNvbG9yID0gY29s
+b3JzeXMuaHN2X3RvX3JnYihucC5yYW5kb20ucmFuZG9tKCksIDAuOSwgMC41KQogICAgICAgIHNl
+bGYubGFzdCA9ICgwLDApCiAgICAgICAgICAgIAogICAgZGVmIHVwZGF0ZV9ub25lKHNlbGYsIGR0
+KToKICAgICAgICBzZWxmLnRpbWVfaW5fc3RhdGUgKz0gZHQgICAgICAgIAogICAgICAgIGlmIHNl
+bGYudGltZV9pbl9zdGF0ZSA+IHNlbGYudGltZW91dDoKICAgICAgICAgICAgc2VsZi5zdGF0ZSA9
+IDAKICAgICAgICAgICAgc2VsZi50aW1lX2luX3N0YXRlICA9IDAgICAgCgogICAgZGVmIHJlc2V0
+KHNlbGYpOgogICAgICAgIHNlbGYuc3RhdGUgPSAwCiAgICAgICAgc2VsZi50aW1lX2luX3N0YXRl
+ICA9IDAKICAgICAgICBzZWxmLnRyaWdnZXIgPSAwLjAKICAgICAgICAKICAgIGRlZiB1cGRhdGUo
+c2VsZiwgeCwgeSwgZHQpOgogICAgCiAgICAgICAgbmV3ID0gKHgseSkKICAgICAgICBvbGQgPSBz
+ZWxmLmxhc3QKICAgICAgICBzZWxmLmxhc3QgPSBuZXcKICAgICAgICBpZiBzZWxmLnN0YXRlPj1s
+ZW4oc2VsZi5zdGF0ZXMpOgogICAgICAgICAgICBzZWxmLnJlc2V0KCkKICAgICAgICAgICAgc2Vs
+Zi5hY3RpdmUgPSAxLjAKICAgICAgICAgICAgcmV0dXJuIFRydWUKICAgICAgICAKICAgICAgICBz
+ZWxmLnRyaWdnZXIgPSAwLjk5ICogc2VsZi50cmlnZ2VyCiAgICAgICAgc2VsZi5hY3RpdmUgPSAw
+Ljk5NSAqIHNlbGYuYWN0aXZlCiAgICAgICAgZm9yIGkgaW4gcmFuZ2UoMjApOgogICAgICAgICAg
+ICBqID0gaS8yMC4wCiAgICAgICAgICAgIHggPSBqKm5ld1swXSsoMS1qKSpvbGRbMF0KICAgICAg
+ICAgICAgeSA9IGoqbmV3WzFdKygxLWopKm9sZFsxXQogICAgICAgICAgICAKICAgICAgICAgICAg
+cyA9IHNlbGYuc3RhdGVzW3NlbGYuc3RhdGVdCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIAogICAgICAgICAgICBpZiBnZW9tZXRyeS5pbnNpZGVfdHJpYW5nbGUoKHgseSksIHMpOgog
+ICAgICAgICAgICAgICAgc2VsZi5zdGF0ZSA9IHNlbGYuc3RhdGUgKyAxCiAgICAgICAgICAgICAg
+ICBzZWxmLnRpbWVfaW5fc3RhdGUgPSAwIAogICAgICAgICAgICAgICAgc2VsZi50cmlnZ2VyID0g
+MS4wCiAgICAgICAgICAKICAgICAgICAgICAgaWYgc2VsZi5zdGF0ZT49bGVuKHNlbGYuc3RhdGVz
+KToKICAgICAgICAgICAgICAgIHNlbGYucmVzZXQoKQogICAgICAgICAgICAgICAgc2VsZi5hY3Rp
+dmUgPSAxLjAgICAgICAgICAgCiAgICAgICAgICAgICAgICByZXR1cm4gVHJ1ZQogICAgICAgICAg
+ICAgICAgCiAgICAgICAgc2VsZi50aW1lX2luX3N0YXRlICs9IGR0CiAgICAgICAgICAgICAgICAK
+ICAgICAgICBpZiBzZWxmLnRpbWVfaW5fc3RhdGUgPiBzZWxmLnRpbWVvdXQ6CiAgICAgICAgICAg
+IHNlbGYucmVzZXQoKSAgICAgICAgICAgCiAgICAgICAgcmV0dXJuIEZhbHNlCiAgICAgICAgCiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAKY2xhc3MgUGhhc2VyKHB5Z2xldC53aW5kb3cuV2lu
+ZG93KToKCiAgICBkZWYgX19pbml0X18oc2VsZik6CiAgICAgICAgc3VwZXIoUGhhc2VyLCBzZWxm
+KS5fX2luaXRfXyhXSURUSCwgSEVJR0hUKSAjIGNvbmZpZz1weWdsZXQuZ2wuQ29uZmlnKHNhbXBs
+ZV9idWZmZXJzPTEsIHNhbXBsZXM9MikpCiAgICAgICAgc2VsZi54ZGltID0gV0lEVEgKICAgICAg
+ICBzZWxmLnlkaW0gPSBIRUlHSFQKICAgICAgICBzZWxmLmxvYWRfZm9udHMoKQogICAgICAgIAog
+ICAgICAgIHNlbGYuZ2VzdHVyZV9zb3VuZCA9IHB5Z2xldC5tZWRpYS5TdGF0aWNTb3VyY2UocHln
+bGV0LnJlc291cmNlLm1lZGlhKCdnZXN0dXJlLndhdicpKQoKICAgICAgICBzZWxmLmJhdGNoID0g
+cHlnbGV0LmdyYXBoaWNzLkJhdGNoKCkKICAgICAgICBzZWxmLmRvY3VtZW50ID0gcHlnbGV0LnRl
+eHQuZG9jdW1lbnQuVW5mb3JtYXR0ZWREb2N1bWVudCgpCiAgICAgICAgc2VsZi5sYXlvdXQgPSBw
+eWdsZXQudGV4dC5sYXlvdXQuSW5jcmVtZW50YWxUZXh0TGF5b3V0KHNlbGYuZG9jdW1lbnQsIDQw
+MCw0MDAsIGJhdGNoPXNlbGYuYmF0Y2gpCiAgICAgICAgc2VsZi5jYXJldCA9IHB5Z2xldC50ZXh0
+LmNhcmV0LkNhcmV0KHNlbGYubGF5b3V0KQogICAgICAgIAogICAgICAgIHNlbGYucHVzaF9oYW5k
+bGVycyhzZWxmLmNhcmV0KQogICAgICAgIAogICAgICAgICMgYWRkIHRoZSBmYWRlcnMKICAgICAg
+ICBzZWxmLmZhZGVycyA9IFtdICAgCiAgICAgICAgc2VsZi50aXRsZV9mYWRlciA9IEZhZGVyKDAu
+MSwgMC45KQogICAgICAgIHNlbGYuZmFkZXJzLmFwcGVuZChzZWxmLnRpdGxlX2ZhZGVyKQogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgc2VsZi5tb3VzZSA9ICgwLCAwKQog
+ICAgICAgIHNlbGYudGl0bGVfaW1hZ2UgPSBweWdsZXQuZm9udC5UZXh0KHNlbGYuZm9udHNbNDBd
+LCAnUGhhc2VTZXEnKQogICAgICAgIHNlbGYubW9kZV9pbWFnZSA9IHB5Z2xldC5mb250LlRleHQo
+c2VsZi5mb250c1s0MF0sICdQYXVzZWQnKQogICAgICAgIAogICAgICAgIHNlbGYucGhhc2VfdHJh
+Y2UgPSBbXQogICAgICAgIHNlbGYudHJhY2VfbGVuID0gMTUwCiAgICAgICAgCiAgICAgICAgc2Vs
+Zi5zZXF1ZW5jZXMgPSBbXQogICAgICAgIHNlbGYuYWN0aXZlX3NlcXVlbmNlID0gTm9uZQogICAg
+ICAgIAogICAgICAgIHNlbGYuZXh0ZW50cyA9IFstMC4wNSwxLjEsLTAuNiwwLjZdCiAgICAgICAg
+c2VsZi50aGlja25lc3MgPSAwLjA3CiAgICAgICAgCiAgICAgICAgc2VsZi50cmFja2VyID0gVHJh
+Y2tlcihXSURUSCwgSEVJR0hUKSAgICAgCgogICAgICAgIHNlbGYucGF1c2VkID0gRmFsc2UKCiAg
+ICAgICAgc2VsZi5pbXBvcnRfc2VxdWVuY2VzKCkKCiAgICBkZWYgc3RhcnRfc2VxdWVuY2Uoc2Vs
+Zik6CiAgICAgICAgc2VsZi5hY3RpdmVfc2VxdWVuY2UgPSBbXQogICAgICAgIAogICAgZGVmIGVu
+ZF9zZXF1ZW5jZShzZWxmKToKICAgICAgICBpZiBsZW4oc2VsZi5hY3RpdmVfc2VxdWVuY2UpPjE6
+CiAgICAgICAgICAgIHNlbGYuc2VxdWVuY2VzLmFwcGVuZChUcmlQaGFzZVNlcXVlbmNlKHNlbGYu
+bWFrZV9wYXRoKHNlbGYuYWN0aXZlX3NlcXVlbmNlLCBzZWxmLnRoaWNrbmVzcykpKQogICAgICAg
+IHNlbGYuYWN0aXZlX3NlcXVlbmNlID0gTm9uZQogICAgICAgIAogICAgZGVmIGltcG9ydF9zZXF1
+ZW5jZXMoc2VsZik6CiAgICAgICAgaWYgbm90IG9zLnBhdGguZXhpc3RzKCdzZXF1ZW5jZXMuZGF0
+Jyk6CiAgICAgICAgICAgIHByaW50ICdObyBzZXF1ZW5jZS5kYXQgZmlsZSBmb3VuZCEnCiAgICAg
+ICAgICAgIHJldHVybgoKICAgICAgICBzZWxmLnNlcXVlbmNlcyA9IFtdCiAgICAgICAgc2VsZi5h
+Y3RpdmVfc2VxdWVuY2UgPSBOb25lCgogICAgICAgIHdpdGggb3Blbignc2VxdWVuY2VzLmRhdCcs
+ICdyJykgYXMgZjoKICAgICAgICAgICAgc2VxX2RhdGEgPSBmLnJlYWRsaW5lcygpCgogICAgICAg
+IAogICAgICAgIGZvciBzZCBpbiBzZXFfZGF0YToKICAgICAgICAgICAgcG9pbnRzID0gW10KICAg
+ICAgICAgICAgc2QgPSBzZC5zcGxpdCgnLCcpCiAgICAgICAgICAgIGZvciBpIGluIHJhbmdlKDAs
+IGxlbihzZCksIDYpOgogICAgICAgICAgICAgICAgdCA9IG1hcChmbG9hdCwgc2RbaTppKzZdKQog
+ICAgICAgICAgICAgICAgcG9pbnRzLmFwcGVuZCgoKHRbMF0sIHRbMV0pLCAodFsyXSwgdFszXSks
+ICh0WzRdLCB0WzVdKSkpCiAgICAgICAgICAgIHNlbGYuc2VxdWVuY2VzLmFwcGVuZChUcmlQaGFz
+ZVNlcXVlbmNlKHBvaW50cykpCgogICAgICAgIHByaW50ICdJbXBvcnRlZCAlZCBzZXF1ZW5jZXMn
+ICUgKGxlbihzZWxmLnNlcXVlbmNlcykpCgogICAgZGVmIGV4cG9ydF9zZXF1ZW5jZXMoc2VsZik6
+CiAgICAgICAgaWYgbGVuKHNlbGYuc2VxdWVuY2VzKSA9PSAwOgogICAgICAgICAgICBwcmludCAn
+Tm8gc2VxdWVuY2VzIHRvIGV4cG9ydCcKICAgICAgICAgICAgcmV0dXJuCgogICAgICAgIHByaW50
+ICdFeHBvcnRpbmcgJWQgc2VxdWVuY2VzIHRvIHNlcXVlbmNlcy5kYXQnICUgKGxlbihzZWxmLnNl
+cXVlbmNlcykpCiAgICAgICAgd2l0aCBvcGVuKCdzZXF1ZW5jZXMuZGF0JywgJ3cnKSBhcyBmOgog
+ICAgICAgICAgICBmb3IgaiwgcyBpbiBlbnVtZXJhdGUoc2VsZi5zZXF1ZW5jZXMpOgogICAgICAg
+ICAgICAgICAgcG9pbnRzID0gbGlzdChpdGVydG9vbHMuY2hhaW4uZnJvbV9pdGVyYWJsZShzLnN0
+YXRlcykpCiAgICAgICAgICAgICAgICBmb3IgaSwgcCBpbiBlbnVtZXJhdGUocG9pbnRzKToKICAg
+ICAgICAgICAgICAgICAgICBmLndyaXRlKCclZiwlZicgJSBwKQogICAgICAgICAgICAgICAgICAg
+IGlmIGkgPCBsZW4ocG9pbnRzKSAtIDE6CiAgICAgICAgICAgICAgICAgICAgICAgIGYud3JpdGUo
+JywnKQogICAgICAgICAgICAgICAgICAgIGVsc2U6CiAgICAgICAgICAgICAgICAgICAgICAgIGlm
+IGogPCBsZW4oc2VsZi5zZXF1ZW5jZXMpIC0gMToKICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGYud3JpdGUoJ1xuJykKICAgICAgICAgICAgICAgIHByaW50ICdTZXF1ZW5jZSBleHBvcnRlZCAo
+JWQgcG9pbnRzKScgJSAobGVuKHBvaW50cykgLyAzKQoKICAgIGRlZiBsb2FkX2ZvbnRzKHNlbGYp
+OgogICAgICAgICMgbG9hZCBmb250cwogICAgICAgIHNlbGYuZm9udHMgPSB7fQogICAgICAgIHB5
+Z2xldC5mb250LmFkZF9maWxlKCJyZXoudHRmIikKICAgICAgICBmb3IgaSBpbiByYW5nZSg2LDQx
+KToKICAgICAgICAgICAgc2VsZi5mb250c1tpXSA9IHB5Z2xldC5mb250LmxvYWQoJ1JleicsIGkp
+CiAgICAKICAgIGRlZiBzdGFydChzZWxmKToKICAgICAgICBweWdsZXQuY2xvY2suc2NoZWR1bGVf
+aW50ZXJ2YWwoc2VsZi51cGRhdGUsIDEvNjAuMCkKICAgICAgICBweWdsZXQuYXBwLnJ1bigpCiAg
+ICAgICAgc2VsZi5leHBvcnRfc2VxdWVuY2VzKCkKICAgICAgICAgIAogICAgZGVmIHVwZGF0ZShz
+ZWxmLCBkdCk6ICAgICAgICAgICAgCiAgICAgICAgIiIiRnJhbWUgdXBkYXRlIiIiCiAgICAgICAg
+IyB1cGRhdGUgdGhlIGZhZGVycywgc28gdGhleSBmYWRlIGluIGFuZCBvdXQKICAgICAgICBmb3Ig
+ZmFkZXIgaW4gc2VsZi5mYWRlcnM6CiAgICAgICAgICAgIGZhZGVyLnVwZGF0ZShkdCkgICAgICAg
+ICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgIHNlbGYudHJhY2tlci51cGRh
+dGUocG9zPXNlbGYubW91c2UpICAgICAgICAgICAgCgogICAgICAgIGlmIHNlbGYucGF1c2VkOgog
+ICAgICAgICAgICBzZWxmLmRyYXcoKQogICAgICAgICAgICByZXR1cm4KICAgICAgICAgCiAgICAg
+ICAgaWYgc2VsZi50cmFja2VyLnRoZV9vYmplY3QuYWN0aXZlOgogICAgICAgICAgICBuID0gbGVu
+KHNlbGYudHJhY2tlci50aGVfb2JqZWN0LmRfc2VxKQogICAgICAgICAgICBmb3IgZCBpbiBzZWxm
+LnRyYWNrZXIudGhlX29iamVjdC5kX3NlcToKICAgICAgICAgICAgICAgIHN0YXRlID0gKGRbMCww
+XSxkWzAsMV0qNCkKICAgICAgICAgICAgICAgIHNlbGYucGhhc2VfdHJhY2UuYXBwZW5kKHN0YXRl
+KQogICAgICAgICAgICAgICAgZm9yIGksc2VxIGluIGVudW1lcmF0ZShzZWxmLnNlcXVlbmNlcyk6
+CiAgICAgICAgICAgICAgICAgICAgc2VxLnVwZGF0ZShzdGF0ZVswXSwgc3RhdGVbMV0sIGR0L24p
+CiAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgaWYgc2VxLmFjdGl2ZT09
+MS4wOgogICAgICAgICAgICAgICAgICAgICAgICBzZWxmLmdlc3R1cmVfc291bmQucGxheSgpCiAg
+ICAgICAgICAgICAgICAgICAgICAgIHNlbGYudGl0bGVfaW1hZ2UgPSBweWdsZXQuZm9udC5UZXh0
+KHNlbGYuZm9udHNbNDBdLCAnR2VzdHVyZSAlZCcgJSBpKQogICAgICAgICAgICAgICAgICAgICAg
+ICBzZWxmLnRpdGxlX2ZhZGVyLnJlc2V0KCkKICAgICAgICBlbHNlOgogICAgICAgICAgICBzZWxm
+LnBoYXNlX3RyYWNlLmFwcGVuZChOb25lKQogICAgICAgICAgICAKICAgICAgICBpZiBsZW4oc2Vs
+Zi5waGFzZV90cmFjZSk+c2VsZi50cmFjZV9sZW46CiAgICAgICAgICAgIHNlbGYucGhhc2VfdHJh
+Y2UgPSBzZWxmLnBoYXNlX3RyYWNlW2xlbihzZWxmLnBoYXNlX3RyYWNlKS1zZWxmLnRyYWNlX2xl
+bjpdCgogICAgICAgIHNlbGYuZHJhdygpCgogICAgZGVmIGRyYXdfYXhlcyhzZWxmKToKICAgICAg
+ICB3ID0gMC44ICogc2VsZi5leHRlbnRzWzFdCiAgICAgICAgeTEgPSAwLjcgKiBzZWxmLmV4dGVu
+dHNbMl0KICAgICAgICB5MiA9IDAuNyAqIHNlbGYuZXh0ZW50c1szXQoKICAgICAgICBnbExpbmVX
+aWR0aCgzLjApCiAgICAgICAgCiAgICAgICAgZ2xFbmFibGUoR0xfQkxFTkQpCiAgICAgICAgZ2xC
+bGVuZEZ1bmMoR0xfU1JDX0FMUEhBLCBHTF9PTkVfTUlOVVNfU1JDX0FMUEhBKQogICAgICAgIGlm
+IHNlbGYucGF1c2VkOiAKICAgICAgICAgICAgZ2xDb2xvcjRmKDAuMiwgMC45LCAwLjUsIDAuMykK
+ICAgICAgICBlbHNlOgogICAgICAgICAgICBnbENvbG9yNGYoMC4yLCAwLjUsIDAuOSAsMC4zKQoK
+ICAgICAgICBnbEJlZ2luKEdMX0xJTkVTKQogICAgICAgIGdsVmVydGV4MmYoMCx5MSkKICAgICAg
+ICBnbFZlcnRleDJmKDAsIHkyKQogICAgICAgIGdsVmVydGV4MmYoMCwwKQogICAgICAgIGdsVmVy
+dGV4MmYodywwKSAgICAgICAgCiAgICAgICAgZ2xFbmQoKQogICAgICAgIAogICAgICAgIGlmIHNl
+bGYucGF1c2VkOgogICAgICAgICAgICBnbENvbG9yNGYoMC4yLCAwLjksIDAuNiwgMC4xKQogICAg
+ICAgICAgICBnbEJlZ2luKEdMX1FVQURTKQogICAgICAgICAgICBnbFZlcnRleDJmKDAsMCkKICAg
+ICAgICAgICAgZ2xDb2xvcjRmKDAuMiwgMC45LCAwLjYsIDAuMCkKICAgICAgICAgICAgZ2xWZXJ0
+ZXgyZigwLCB5MSkKICAgICAgICAgICAgZ2xWZXJ0ZXgyZih3LCB5MSkKICAgICAgICAgICAgZ2xD
+b2xvcjRmKDAuMiwgMC45LCAwLjYsIDAuMSkKICAgICAgICAgICAgZ2xWZXJ0ZXgyZih3LDApICAg
+ICAgICAKICAgICAgICBlbHNlOgogICAgICAgICAgICBnbENvbG9yNGYoMC4yLCAwLjYsIDAuOSwg
+MC4xKQogICAgICAgICAgICBnbEJlZ2luKEdMX1FVQURTKQogICAgICAgICAgICBnbFZlcnRleDJm
+KDAsMCkKICAgICAgICAgICAgZ2xDb2xvcjRmKDAuMiwgMC42LCAwLjksIDAuMCkKICAgICAgICAg
+ICAgZ2xWZXJ0ZXgyZigwLCB5MSkKICAgICAgICAgICAgZ2xWZXJ0ZXgyZih3LCB5MSkKICAgICAg
+ICAgICAgZ2xDb2xvcjRmKDAuMiwgMC42LCAwLjksIDAuMSkKICAgICAgICAgICAgZ2xWZXJ0ZXgy
+Zih3LDApICAgICAgICAKICAgICAgICBnbEVuZCgpCiAgICAgICAgCiAgICAgICAgaWYgc2VsZi5w
+YXVzZWQ6IAogICAgICAgICAgICBnbENvbG9yNGYoMC4yLCAwLjksIDAuNSwgMC40KQogICAgICAg
+IGVsc2U6IAogICAgICAgICAgICBnbENvbG9yNGYoMC4yLCAwLjUsIDAuOSwgMC40KQoKICAgICAg
+ICBuID0gMTAKICAgICAgICBmb3IgaSBpbiByYW5nZShuKToKICAgICAgICAgICAgeCA9IHcgKiAo
+KGkrMSkvZmxvYXQobikpCiAgICAgICAgICAgIGdsQmVnaW4oR0xfTElORVMpCiAgICAgICAgICAg
+IGdsVmVydGV4MmYoeCwgLTAuMDEpCiAgICAgICAgICAgIGdsVmVydGV4MmYoeCwgMC4wMSkKICAg
+ICAgICAgICAgZ2xFbmQoKQoKICAgICAgICBnbExpbmVXaWR0aCgxLjApCiAgICAgICAgCiAgICBk
+ZWYgZHJhd190cmFjZShzZWxmKToKICAgICAgIGdsQmxlbmRGdW5jKEdMX1NSQ19BTFBIQSwgR0xf
+T05FKQogICAgICAgayA9IDEuMAogICAgICAgZ2xMaW5lV2lkdGgoMy4wKQogICAgICAgZ2xCZWdp
+bihHTF9MSU5FX1NUUklQKQogICAgICAgZm9yIHZlcnRleCBpbiByZXZlcnNlZChzZWxmLnBoYXNl
+X3RyYWNlKToKICAgICAgICAgICAgaWYgdmVydGV4OgogICAgICAgICAgICAgICAgZ2xDb2xvcjRm
+KDAuOSwwLjcsMC43LGspCiAgICAgICAgICAgICAgICBnbFZlcnRleDJmKHZlcnRleFswXSwgdmVy
+dGV4WzFdKQogICAgICAgICAgICAgICAgayA9IGsgKiAwLjk1ICMwLjkKICAgICAgIGdsRW5kKCkK
+ICAgICAgIGdsTGluZVdpZHRoKDEuMCkKCiAgICBkZWYgZHJhd190cmkoc2VsZiwgdHJpLCBjb2xv
+ciwgcGhhc2U9MCk6CiAgICAgICAgCiAgICAgICAgYWxwaGEgPSAgY29sb3JbM10KICAgICAgICAK
+ICAgICAgICBnbENvbG9yNGYoY29sb3JbMF0sIGNvbG9yWzFdLCBjb2xvclsyXSwgYWxwaGEpIy8y
+LjApCiAgICAgICAgZ2xCZWdpbihHTF9UUklBTkdMRVMpCiAgICAgICAgZ2xWZXJ0ZXgyZigqdHJp
+WzBdKQogICAgICAgIGdsVmVydGV4MmYoKnRyaVsxXSkKICAgICAgICBnbFZlcnRleDJmKCp0cmlb
+Ml0pICAgICAgICAKICAgICAgICBnbEVuZCgpCiAgICAgICAgCiAgICAgICAgICAgIAogICAgICAg
+ICMgZ2xCZWdpbihHTF9MSU5FX0xPT1ApCiAgICAgICAgCiAgICAgICAgIyBnbENvbG9yNGYoY29s
+b3JbMF0sIGNvbG9yWzFdLCBjb2xvclsyXSwgYWxwaGEpCiAgICAgICAgIyBnbFZlcnRleDJmKCp0
+cmlbMF0pICAgICAgICAgICAgICAgIAogICAgICAgICMgZ2xWZXJ0ZXgyZigqdHJpWzFdKSAgICAg
+ICAgCiAgICAgICAgIyBnbFZlcnRleDJmKCp0cmlbMl0pICAgICAgICAKICAgICAgICAjIGdsRW5k
+KCkKICAgICAgICAKICAgIGRlZiBkcmF3X3NlcXVlbmNlcyhzZWxmKToKICAgICAgICBmb3Igc2Vx
+dWVuY2UgaW4gc2VsZi5zZXF1ZW5jZXM6ICAgICAgICAgICAgCiAgICAgICAgICAgIGZvciBpLGVs
+dCBpbiBlbnVtZXJhdGUoc2VxdWVuY2Uuc3RhdGVzKToKICAgICAgICAgICAgICAgIGlmIHNlcXVl
+bmNlLmFjdGl2ZT4wLjE6CiAgICAgICAgICAgICAgICAgICAgc2VsZi5kcmF3X3RyaShlbHQsICgx
+LDEsMSwgc2VxdWVuY2UuYWN0aXZlKSkKICAgICAgICAgICAgICAgIGVsc2U6CiAgICAgICAgICAg
+ICAgICAgICAgaWYgaSA9PSBzZXF1ZW5jZS5zdGF0ZToKICAgICAgICAgICAgICAgICAgICAgICAg
+c2VsZi5kcmF3X3RyaShlbHQsICgwLjYsIDAuOSwgMC42LCBzZXF1ZW5jZS50cmlnZ2VyKzAuMSkp
+CiAgICAgICAgICAgICAgICAgICAgZWxzZToKICAgICAgICAgICAgICAgICAgICAgICAgYyA9IHNl
+cXVlbmNlLmNvbG9yCiAgICAgICAgICAgICAgICAgICAgICAgIHNlbGYuZHJhd190cmkoZWx0LCAo
+MC42LCAwLjksIDAuNiwgMC4yNSksIHBoYXNlPWkpCiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgCiAgICAgICAgaWYgc2VsZi5hY3RpdmVfc2VxdWVuY2U6CiAgICAg
+ICAgICAgIHNlbGYuZHJhd190aGlja19saW5lKHNlbGYuYWN0aXZlX3NlcXVlbmNlKQogICAgICAg
+ICAgICAgCiAgICBkZWYgbWFrZV9wYXRoKHNlbGYsIHNlcSwgdGhpY2tuZXNzKToKICAgICAgICAi
+IiJDb252ZXJ0IGEgbGluZWFyIHNlcXVlbmNlIHRvIGEgc2V0IG9mIHRyaWFuZ2xlcyIiIgogICAg
+ICAgIGxhc3QgPSBOb25lCiAgICAgICAgbGFzdF9sID0gTm9uZQogICAgICAgIHRyaXMgPSBbXQog
+ICAgICAgIAogICAgICAgIGlmIGxlbihzZXEpPjI6ICAgICAgICAgICAgCiAgICAgICAgICAgIHNw
+bCA9IHNwbGluZS5DYXJkaW5hbFNwbGluZShzZXEsIHRlbnNpb249MC4yKQogICAgICAgICAgICAj
+c2VxID0gW3NwbCh4LzMuMCkgZm9yIHggaW4gcmFuZ2UoMyoobGVuKHNlcSktMSkpXQogICAgICAg
+IAogICAgICAgIGZvciBwdCBpbiBzZXE6CiAgICAgICAgICAgIGlmIGxhc3Q6CiAgICAgICAgICAg
+ICAgICBub3JtYWwgPSBnZW9tZXRyeS5ub3JtYWwobGFzdCwgcHQpCiAgICAgICAgICAgICAgICBz
+dHJ1dCA9IGdlb21ldHJ5Lm11bChub3JtYWwsIHRoaWNrbmVzcykKICAgICAgICAgICAgICAgIGlm
+IG5vdCBsYXN0X2w6CiAgICAgICAgICAgICAgICAgICAgbGFzdF9yID0gKGdlb21ldHJ5LnN1Yihz
+dHJ1dCwgbGFzdCkpCiAgICAgICAgICAgICAgICAgICAgbGFzdF9sID0gKGdlb21ldHJ5LmFkZChz
+dHJ1dCwgbGFzdCkpICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIAogICAgICAgICAgICAgICAgdHJpcy5hcHBlbmQoKGdlb21ldHJ5LmFkZChzdHJ1dCwgcHQp
+LCBsYXN0X3IsIGxhc3RfbCkpCiAgICAgICAgICAgICAgICB0cmlzLmFwcGVuZCgoZ2VvbWV0cnku
+YWRkKHN0cnV0LCBwdCksIGdlb21ldHJ5LnN1YihzdHJ1dCwgcHQpLCBsYXN0X3IpKQogICAgICAg
+ICAgICAgICAgbGFzdF9sID0gZ2VvbWV0cnkuYWRkKHN0cnV0LCBwdCkKICAgICAgICAgICAgICAg
+IGxhc3RfciA9IGdlb21ldHJ5LnN1YihzdHJ1dCwgcHQpCiAgICAgICAgICAgIAogICAgICAgICAg
+ICBsYXN0ID0gcHQKICAgICAgICByZXR1cm4gdHJpcwogICAgICAgIAogICAgZGVmIGRyYXdfdGhp
+Y2tfbGluZShzZWxmLCBzZXEpOgogICAgICAgIGdsQ29sb3I0ZigwLjQsMC43LDAuOCwgMC4yKQog
+ICAgICAgIGdsUG9pbnRTaXplKDQuMCkKICAgICAgICBpZiBsZW4oc2VxKT09MTogICAgICAgICAg
+ICAKICAgICAgICAgICAgZ2xCZWdpbihHTF9QT0lOVFMpCiAgICAgICAgICAgIGdsVmVydGV4MmYo
+KnNlcVswXSkKICAgICAgICAgICAgZ2xFbmQoKQogICAgICAgIAogICAgICAgIHRyaXMgPSBzZWxm
+Lm1ha2VfcGF0aChzZXEsIHNlbGYudGhpY2tuZXNzKSAgICAgICAKICAgICAgICAKICAgICAgICBm
+b3IgdHJpIGluIHRyaXM6ICAgICAgICAgICAgCiAgICAgICAgICAgIGdsQmVnaW4oR0xfTElORV9M
+T09QKQogICAgICAgICAgICBmb3IgdmVydGV4IGluIHRyaTogICAgICAgICAgIAogICAgICAgICAg
+ICAgICAgZ2xWZXJ0ZXgyZigqdmVydGV4KSAgICAgICAgICAgIAogICAgICAgICAgICBnbEVuZCgp
+CiAgICAgICAgICAgIAogICAgZGVmIGRyYXdfcGF1c2VkX2JhY2tncm91bmQoc2VsZik6CiAgICAg
+ICAgZ2xCbGVuZEZ1bmMoR0xfU1JDX0FMUEhBLCBHTF9PTkVfTUlOVVNfU1JDX0FMUEhBKQogICAg
+ICAgIGdsQmVnaW4oR0xfUVVBRFMpCiAgICAgICAgZ2xDb2xvcjRmKDAuMDIsMC4yNSwwLjEyLDEp
+ICAgICAgICAKICAgICAgICBnbFZlcnRleDJmKDAsMCkKICAgICAgICBnbENvbG9yNGYoMC4wMiww
+LjI1LDAuMTIsMSkgICAgICAgIAogICAgICAgIGdsVmVydGV4MmYoc2VsZi53aWR0aCwgMCkKICAg
+ICAgICBnbENvbG9yNGYoMC4wMywwLjM2LDAuMjIsMSkgICAgICAgIAogICAgICAgIGdsVmVydGV4
+MmYoc2VsZi53aWR0aCwgc2VsZi5oZWlnaHQpCiAgICAgICAgZ2xDb2xvcjRmKDAuMTMsMC4zNiww
+LjIyLDEpICAgICAgICAKICAgICAgICBnbFZlcnRleDJmKDAsIHNlbGYuaGVpZ2h0KSAgICAgICAg
+CiAgICAgICAgZ2xFbmQoKQoKICAgIGRlZiBkcmF3X2JhY2tncm91bmQoc2VsZik6CiAgICAgICAg
+Z2xCbGVuZEZ1bmMoR0xfU1JDX0FMUEhBLCBHTF9PTkVfTUlOVVNfU1JDX0FMUEhBKQogICAgICAg
+IGdsQmVnaW4oR0xfUVVBRFMpCiAgICAgICAgZ2xDb2xvcjRmKDAuMDIsMC4wNCwwLjEyLDEpICAg
+ICAgICAKICAgICAgICBnbFZlcnRleDJmKDAsMCkKICAgICAgICBnbENvbG9yNGYoMC4wMiwwLjA0
+LDAuMTIsMSkgICAgICAgIAogICAgICAgIGdsVmVydGV4MmYoc2VsZi53aWR0aCwgMCkKICAgICAg
+ICBnbENvbG9yNGYoMC4wMywwLjA3LDAuMjIsMSkgICAgICAgIAogICAgICAgIGdsVmVydGV4MmYo
+c2VsZi53aWR0aCwgc2VsZi5oZWlnaHQpCiAgICAgICAgZ2xDb2xvcjRmKDAuMTMsMC4wNywwLjIy
+LDEpICAgICAgICAKICAgICAgICBnbFZlcnRleDJmKDAsIHNlbGYuaGVpZ2h0KSAgICAgICAgCiAg
+ICAgICAgZ2xFbmQoKQoKICAgIGRlZiBkcmF3KHNlbGYpOiAgICAgICAgCiAgICAgICAgIiIiRHJh
+dyB0aGUgZW50aXJlIHNjcmVlbiIiIiAgIAogICAgICAgIGdsQ2xlYXJDb2xvcigwLjAyLDAuMDQs
+MC4xMiwxKSAgICAgICAgCiAgICAgICAgCiAgICAgICAgc2VsZi5sYXN0X2ZyYW1lX3RpbWUgPSB0
+aW1lLmNsb2NrKCkKICAgICAgICBzZWxmLmNsZWFyKCkgICAgICAgIAogICAgICAgIGlmIHNlbGYu
+cGF1c2VkOgogICAgICAgICAgICBzZWxmLmRyYXdfcGF1c2VkX2JhY2tncm91bmQoKQogICAgICAg
+IGVsc2U6CiAgICAgICAgICAgIHNlbGYuZHJhd19iYWNrZ3JvdW5kKCkKCiAgICAgICAgZ2xMb2Fk
+SWRlbnRpdHkoKSAgICAgICAgICAKCiAgICAgICAgZ2xNYXRyaXhNb2RlKEdMX1BST0pFQ1RJT04p
+CiAgICAgICAgZ2xQdXNoTWF0cml4KCkKICAgICAgICBnbExvYWRJZGVudGl0eSgpCiAgICAgICAg
+Z2xPcnRobyhzZWxmLmV4dGVudHNbMF0sc2VsZi5leHRlbnRzWzFdLHNlbGYuZXh0ZW50c1syXSwg
+c2VsZi5leHRlbnRzWzNdLC0xLDEpCiAgICAgICAgZ2xNYXRyaXhNb2RlKEdMX01PREVMVklFVykK
+ICAgICAgICBnbExvYWRJZGVudGl0eSgpCiAgICAgICAgCiAgICAgICAgc2VsZi5kcmF3X2F4ZXMo
+KQogICAgICAgIHNlbGYuZHJhd190cmFjZSgpCiAgICAgICAgc2VsZi5kcmF3X3NlcXVlbmNlcygp
+CiAgICAgICAgCiAgICAgICAgZ2xNYXRyaXhNb2RlKEdMX1BST0pFQ1RJT04pCiAgICAgICAgZ2xQ
+b3BNYXRyaXgoKQogICAgICAgIGdsTWF0cml4TW9kZShHTF9NT0RFTFZJRVcpCiAgICAgICAgZ2xM
+b2FkSWRlbnRpdHkoKQogICAgICAgIHNlbGYuZHJhd190aXRsZSgpCiAgICAgICAgc2VsZi5kcmF3
+X21vZGUoKQogICAgICAgIAogICAgZGVmIG9uX2tleV9yZWxlYXNlKHNlbGYsIHN5bWJvbCwgbW9k
+aWZpZXJzKTogIAogICAgICAgIGlmIHN5bWJvbCA9PSBweWdsZXQud2luZG93LmtleS5DOgogICAg
+ICAgICAgICBwcmludCAnQ2xlYXJpbmcgc2VxdWVuY2VzJwogICAgICAgICAgICBzZWxmLnNlcXVl
+bmNlcyA9IFtdCiAgICAgICAgICAgIHNlbGYuYWN0aXZlX3NlcXVlbmNlID0gTm9uZQogICAgICAg
+IGVsaWYgc3ltYm9sID09IHB5Z2xldC53aW5kb3cua2V5Lk1JTlVTOgogICAgICAgICAgICBzZWxm
+LnRoaWNrbmVzcyAtPSAwLjAxCiAgICAgICAgICAgIHByaW50ICd0aGlja25lc3MgPScsIHNlbGYu
+dGhpY2tuZXNzCiAgICAgICAgZWxpZiBzeW1ib2wgPT0gcHlnbGV0LndpbmRvdy5rZXkuRVFVQUw6
+CiAgICAgICAgICAgIHNlbGYudGhpY2tuZXNzICs9IDAuMDEKICAgICAgICAgICAgcHJpbnQgJ3Ro
+aWNrbmVzcyA9Jywgc2VsZi50aGlja25lc3MKICAgICAgICBlbGlmIHN5bWJvbCA9PSBweWdsZXQu
+d2luZG93LmtleS5TUEFDRToKICAgICAgICAgICAgc2VsZi5wYXVzZWQgPSBub3Qgc2VsZi5wYXVz
+ZWQKICAgICAgICAgICAgcHJpbnQgJ3BhdXNlZD0nLCBzZWxmLnBhdXNlZAogICAgICAgIGVsaWYg
+c3ltYm9sID09IHB5Z2xldC53aW5kb3cua2V5LkU6CiAgICAgICAgICAgIHNlbGYuZXhwb3J0X3Nl
+cXVlbmNlcygpCiAgICAgICAgZWxpZiBzeW1ib2wgPT0gcHlnbGV0LndpbmRvdy5rZXkuSToKICAg
+ICAgICAgICAgc2VsZi5pbXBvcnRfc2VxdWVuY2VzKCkKICAgICAgICAKICAgIGRlZiBvbl9tb3Vz
+ZV9tb3Rpb24oc2VsZiwgeCwgeSwgZHgsIGR5KToKICAgICAgICBzZWxmLm1vdXNlID0gKHgsIHkp
+CiAgICAKICAgIGRlZiBuZXdfc3RhdGUoc2VsZix4LHkpOgogICAgICAgIHggPSB4IC8gZmxvYXQo
+c2VsZi53aWR0aCkKICAgICAgICB5ID0geSAvIGZsb2F0KHNlbGYuaGVpZ2h0KQogICAgICAgIHJ4
+ID0gKDEteCkqc2VsZi5leHRlbnRzWzBdICsgKHgpKnNlbGYuZXh0ZW50c1sxXQogICAgICAgIHJ5
+ID0gKDEteSkqc2VsZi5leHRlbnRzWzJdICsgKHkpKnNlbGYuZXh0ZW50c1szXQogICAgICAgIHNl
+bGYuYWN0aXZlX3NlcXVlbmNlLmFwcGVuZCgocngsIHJ5KSkKICAgICAgICAKICAgIGRlZiBvbl9t
+b3VzZV9yZWxlYXNlKHNlbGYsIHgsIHksIGJ1dHRvbiwgbW9kaWZpZXJzKToKICAgICAgICBzZWxm
+Lm1vdXNlID0gKHgsIHkpCiAgICAgICAgaWYgYnV0dG9uPT1weWdsZXQud2luZG93Lm1vdXNlLkxF
+RlQgYW5kIHNlbGYuYWN0aXZlX3NlcXVlbmNlIT1Ob25lOgogICAgICAgICAgICBzZWxmLm5ld19z
+dGF0ZSh4LHkpCiAgICAgICAgaWYgYnV0dG9uPT1weWdsZXQud2luZG93Lm1vdXNlLlJJR0hUIGFu
+ZCBzZWxmLmFjdGl2ZV9zZXF1ZW5jZSE9Tm9uZToKICAgICAgICAgICAgc2VsZi5lbmRfc2VxdWVu
+Y2UoKQogICAgICAgIGlmIGJ1dHRvbj09cHlnbGV0LndpbmRvdy5tb3VzZS5SSUdIVCBhbmQgc2Vs
+Zi5hY3RpdmVfc2VxdWVuY2U9PU5vbmU6CiAgICAgICAgICAgIHNlbGYuc3RhcnRfc2VxdWVuY2Uo
+KQoKICAgIGRlZiBkcmF3X21vZGUoc2VsZik6CiAgICAgICAgaWYgc2VsZi5wYXVzZWQ6CiAgICAg
+ICAgICAgIGdsQmxlbmRGdW5jKEdMX1NSQ19BTFBIQSwgR0xfT05FX01JTlVTX1NSQ19BTFBIQSkg
+ICAgICAgICAgICAKICAgICAgICAgICAgc2VsZi5tb2RlX2ltYWdlLnggPSBzZWxmLndpZHRoLzIK
+ICAgICAgICAgICAgc2VsZi5tb2RlX2ltYWdlLnkgPSBzZWxmLmhlaWdodCAtIDQwCiAgICAgICAg
+ICAgIHNlbGYubW9kZV9pbWFnZS5oYWxpZ24gPSAiY2VudGVyIgogICAgICAgICAgICBzZWxmLm1v
+ZGVfaW1hZ2UudmFsaWduID0gImNlbnRlciIKICAgICAgICAgICAgc2VsZi5tb2RlX2ltYWdlLmNv
+bG9yID0gKDEsMSwxLCAxKQogICAgICAgICAgICBzZWxmLm1vZGVfaW1hZ2UuZHJhdygpCgogICAg
+ZGVmIGRyYXdfdGl0bGUoc2VsZik6CiAgICAgICAgIiIiRHJhdyB0aGUgdGl0bGUsIGZhZGluZyBp
+biBhbmQgb3V0IiIiICAgICAgICAKICAgICAgICBrID0gc2VsZi50aXRsZV9mYWRlci5nZXQoKSAg
+ICAgICAgICAgICAgICAKICAgICAgICBpZiBrPjFlLTM6CiAgICAgICAgICAgIGdsQmxlbmRGdW5j
+KEdMX1NSQ19BTFBIQSwgR0xfT05FX01JTlVTX1NSQ19BTFBIQSkgICAgICAgICAgICAKICAgICAg
+ICAgICAgc2VsZi50aXRsZV9pbWFnZS54ID0gc2VsZi53aWR0aC8yIAogICAgICAgICAgICBzZWxm
+LnRpdGxlX2ltYWdlLnkgPSBzZWxmLmhlaWdodC8yCiAgICAgICAgICAgIHNlbGYudGl0bGVfaW1h
+Z2UuaGFsaWduID0gImNlbnRlciIKICAgICAgICAgICAgc2VsZi50aXRsZV9pbWFnZS52YWxpZ24g
+PSAiY2VudGVyIgogICAgICAgICAgICBzZWxmLnRpdGxlX2ltYWdlLmNvbG9yID0gKDEsMSwxLCBr
+KQogICAgICAgICAgICBzZWxmLnRpdGxlX2ltYWdlLmRyYXcoKQogICAgCmlmIF9fbmFtZV9fID09
+ICJfX21haW5fXyI6CiAgICBzZCA9IFBoYXNlcigpCiAgICBzZC5zdGFydCgpCgoKICAKICAgICAg
+ICAgCg==
+
+--------------020801080301080309060508--
